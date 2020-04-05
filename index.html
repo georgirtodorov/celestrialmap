@@ -1,23 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
+    
+  <!--BoF date picker -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--EoF date picker -->
+  
   <title>D3-Celestial Presets</title>
   <script type="text/javascript" src="lib/d3.min.js"></script>
   <script type="text/javascript" src="lib/d3.geo.projection.min.js"></script>
-  <script type="text/javascript" src="celestial.js"></script>
-  <link rel="stylesheet" href="celestial.css">
+  <script type="text/javascript" src="src/celestial.js"></script>
+  <link rel="stylesheet" href="src/css/celestial.css">
+  
+  <!--BoF date picker -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link href="src/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="src/css/main.css">
+<link href="src/css/cuppa-datepicker-styles.css" rel="stylesheet">
+<script type="text/javascript" src="lib/moment.js"></script>
+<script type="text/javascript" src="src/js/cuppa-calendar.js"></script>
+<script>
+var cal = null;
+window.onload = function () { 
+
+		cal2 = new WinkelCalendar({
+		container: 'cuppaDatePicker',
+		bigBanner: false,
+		format : "DD/MM/YYYY",
+		onSelect : onDateChange,
+        bigBanner: true
+		
+	});	
+}
+
+
+function onDateChange(date){
+    
+    
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+        minutes = 0;    
+        seconds = 0
+        
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    user_date = [year, month, day, minutes, seconds].join(', ') ;
+   
+    console.log(user_date);
+    
+    
+    console.log(date);
+    Celestial.skyview({"date": new Date(Date.UTC(month, day, year, minutes, seconds))});
+    console.log(Date);
+}
+
+</script>
+
+
+ 
+
+  
+  
 </head>
 
 <body>
   <div style="overflow:hidden;"><div id="celestial-map"></div></div>
   <div id="celestial-form"></div>
+  
+<!-- BoF date picker --> 
+<div class="container datepicker-container col-sm-6 col-md-6 col-lg-3">
+		<div id="cuppaDatePicker"></div>
+		<div class="methods">
+			<button class="btn btn-info btn-sm" onClick="cal2.today()">Today</button>
+			<button class="btn btn-info btn-sm" onClick="cal2.setDate('2017-5-1')">SetDate</button>
+		</div>
+</div>
+<!-- EoF date picker --> 
+
+<input type="time" id="appt" name="appt">
+
 
   <p>Locations</p>
   <button id="location-paris">Paris</button>
   <button id="location-tokyo">Tokyo</button>
   <button id="location-buenos-aires">Buenos Aires</button>
   <button id="location-new-york">New York</button>
+  <button id="location-sofia">Sofia</button>
 
   <p>Moments</p>
   <button id="date-first-flight">First powered flight</button>
@@ -131,6 +208,9 @@ document.getElementById("location-buenos-aires").onclick = () => {
 document.getElementById("location-new-york").onclick = () => {
   Celestial.skyview({"location": [40.7, -73.9]});
 }
+document.getElementById("location-sofia").onclick = () => {
+  Celestial.skyview({"location": [42.9, 23.3]});
+}
 
 document.getElementById("date-first-flight").onclick = () => {
   Celestial.skyview({"date": new Date(Date.UTC(1903, 11, 23, 15, 35))});
@@ -144,6 +224,10 @@ document.getElementById("date-first-step-moon").onclick = () => {
 document.getElementById("date-berlin-wall-fall").onclick = () => {
   Celestial.skyview({"date": new Date(Date.UTC(1989, 10, 9, 8, 45))});
 }
+
+
+
+
 
   </script>
 

@@ -35,5 +35,11 @@
   "bugs": {
     "url": "https://github.com/ofrohn/d3-celestial/issues"
   },
-  "homepage": "https://github.com/ofrohn/d3-celestial"
+  "homepage": "https://github.com/ofrohn/d3-celestial",
+  "keywords": [
+    "datepicker",
+    "javascript",
+    "mobile datepicker"
+  ]
+  
 }
